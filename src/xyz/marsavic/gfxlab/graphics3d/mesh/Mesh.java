@@ -66,11 +66,11 @@ public class Mesh implements Solid {
         Vertex v1 = triangle.v1();
         Vertex v2 = triangle.v2();
 
-        Vec3 v0v1 = v1.p().sub(v0.p());
-        Vec3 v0v2 = v2.p().sub(v0.p());
+        Vec3 e1 = v1.p().sub(v0.p());
+        Vec3 e2 = v2.p().sub(v0.p());
 
-        Vec3 p = ray.d().cross(v0v2);
-        double det = v0v1.dot(p);
+        Vec3 p = ray.d().cross(e2);
+        double det = e1.dot(p);
 
         if(det == 0) return Double.POSITIVE_INFINITY; // parallel ray
 
@@ -83,7 +83,7 @@ public class Mesh implements Solid {
             return Double.POSITIVE_INFINITY;
         }
 
-        Vec3 q = t.cross(v0v1);
+        Vec3 q = t.cross(e1);
         double v = inv_det * ray.d().dot(q);
 
 
@@ -91,7 +91,7 @@ public class Mesh implements Solid {
             return Double.POSITIVE_INFINITY;
         }
 
-        return  inv_det * v0v2.dot(q);
+        return  inv_det * e2.dot(q);
 
 
     }
