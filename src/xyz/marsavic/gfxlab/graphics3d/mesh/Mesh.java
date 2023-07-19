@@ -1,5 +1,6 @@
 package xyz.marsavic.gfxlab.graphics3d.mesh;
 
+import xyz.marsavic.functions.interfaces.F1;
 import xyz.marsavic.gfxlab.Color;
 import xyz.marsavic.gfxlab.Vec3;
 import xyz.marsavic.gfxlab.graphics3d.Hit;
@@ -13,10 +14,18 @@ import xyz.marsavic.geometry.Vector;
 
 public class Mesh implements Solid {
     private List<Triangle> triangles;
+    private  F1<Material, Vector> mapMaterial;
 
     public Mesh() {
         triangles = new ArrayList<>();
     }
+
+    public Mesh(F1<Material, Vector> mapMaterial){
+        triangles = new ArrayList<>();
+        this.mapMaterial = mapMaterial;
+    }
+
+
 
     public void addTriangle(Triangle triangle) {
         triangles.add(triangle);
@@ -48,7 +57,7 @@ public class Mesh implements Solid {
 
                 @Override
                 public Material material() {
-                    return Material.MIRROR;
+                    return Mesh.this.mapMaterial.at(uv());
                 }
 
                 @Override

@@ -34,11 +34,15 @@ public class MeshTest extends Scene.Base {
         );
 
         String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/pyramid.obj";
-        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath);
-        solids.add(mesh);
+        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath, Material.MIRROR);
+        solids.add(mesh.transformed(
+                Affine.IDENTITY
+                        .then(Affine.rotationAboutY(0.3))
+                )
+        );
 
 //        String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/beetle.obj";
-//        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath);
+//        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath,Material.matte(Color.hsb(0.15, 0.9, 0.9)).specular(Color.WHITE).shininess(64));
 //        solids.add(mesh
 //                        .transformed(Affine.IDENTITY
 //                                .then(Affine.scaling(2))
@@ -48,7 +52,7 @@ public class MeshTest extends Scene.Base {
 //        );
 
 //        String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/spot.obj";
-//        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath);
+//        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath, Material.matte(Color.hsb(0.85, 0.9, 0.9)).specular(Color.WHITE).shininess(64));
 //        solids.add(mesh
 //                .transformed(Affine.IDENTITY
 //                        .then(Affine.scaling(0.5))
