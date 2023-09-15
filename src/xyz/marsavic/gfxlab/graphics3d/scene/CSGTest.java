@@ -7,7 +7,6 @@ import xyz.marsavic.gfxlab.graphics3d.solids.Ball;
 import xyz.marsavic.gfxlab.graphics3d.solids.Box;
 import xyz.marsavic.gfxlab.graphics3d.solids.Group;
 import xyz.marsavic.gfxlab.graphics3d.solids.HalfSpace;
-import xyz.marsavic.gfxlab.graphics3d.textures.Grid;
 
 import java.util.ArrayList;
 import java.util.Collection;
