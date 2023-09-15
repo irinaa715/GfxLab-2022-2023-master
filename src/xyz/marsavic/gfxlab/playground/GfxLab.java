@@ -39,6 +39,7 @@ public class GfxLab {
 //												),
 												e(RayTracerSimple::new,
 														e(MeshTest::new),
+//														e(SceneTextures::new),
 //														e(TransformTest::new),
 //														e(RefractionTest::new),
 //														e(DiscoRoom::new, val(16), val(16), val(0X16829319705145E9L)),
@@ -46,6 +47,7 @@ public class GfxLab {
 //														e(Mirrors::new, val(3)),
 														e(TransformedCamera::new,
 																e(()->ProjectiveCamera.fov(1.0/6)),
+
 																e(Affine.IDENTITY
 																				.then(Affine.translation(Vec3.xyz(0, 0, -2)))
 //																		        .then(Affine.rotationAboutY(0.08))

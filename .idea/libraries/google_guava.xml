@@ -2,7 +2,7 @@
   <library name="google.guava" type="repository">
     <properties maven-id="com.google.guava:guava:RELEASE" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/guava-32.1.1-jre.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/guava-32.1.2-jre.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/failureaccess-1.0.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jsr305-3.0.2.jar!/" />

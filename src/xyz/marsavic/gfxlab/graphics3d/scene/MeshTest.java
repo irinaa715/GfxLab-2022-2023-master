@@ -8,6 +8,9 @@ import xyz.marsavic.gfxlab.graphics3d.mesh.MeshLoader;
 import xyz.marsavic.gfxlab.graphics3d.solids.Group;
 import xyz.marsavic.gfxlab.graphics3d.solids.HalfSpace;
 import xyz.marsavic.gfxlab.graphics3d.textures.Grid;
+import xyz.marsavic.gfxlab.graphics3d.textures.ImageTexture;
+
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +22,7 @@ public class MeshTest extends Scene.Base {
         var materialUVWalls  = Grid.standard(Color.WHITE);
         var materialUVWallsL = Grid.standard(Color.hsb(0.00, 0.5, 1.0));
         var materialUVWallsR = Grid.standard(Color.hsb(0.33, 0.5, 1.0));
+        var grassTex = new ImageTexture("/xyz/marsavic/gfxlab/graphics3d/textures/grass.jpg");
 
         Collection<Solid> solids = new ArrayList<>();
         Collections.addAll(solids,
@@ -33,23 +37,52 @@ public class MeshTest extends Scene.Base {
 
         );
 
-        String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/pyramid.obj";
-        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath, Material.MIRROR);
+
+        Mesh mesh = MeshLoader.loadMeshFromOBJ("/xyz/marsavic/gfxlab/graphics3d/objects/pyramid.obj",
+                Material.matte(Color.hsb(0.15, 0.9, 0.9)).specular(Color.WHITE).shininess(64)
+                );
         solids.add(mesh.transformed(
-                Affine.IDENTITY
-                        .then(Affine.rotationAboutY(0.3))
+                        Affine.IDENTITY
+                                .then(Affine.translation(Vec3.xyz(0,-0.5,0)))
+                                .then(Affine.rotationAboutY(0.3))
                 )
         );
 
-//        String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/beetle.obj";
-//        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath,Material.matte(Color.hsb(0.15, 0.9, 0.9)).specular(Color.WHITE).shininess(64));
-//        solids.add(mesh
-//                        .transformed(Affine.IDENTITY
-//                                .then(Affine.scaling(2))
-//                                   .then(Affine.translation(Vec3.xyz(0,-1,0)))
-//                .then(Affine.rotationAboutY(0.5)))
+
+//        Mesh mesh = MeshLoader.loadMeshFromOBJ("/xyz/marsavic/gfxlab/graphics3d/objects/beetle.obj",
+//                                              Material.matte(Color.hsb(0.15, 0.9, 0.9)).specular(Color.WHITE).shininess(64)
 //
 //        );
+//        solids.add(mesh.transformed(Affine.IDENTITY
+//                                      .then(Affine.scaling(2))
+//                                      .then(Affine.translation(Vec3.xyz(0,-1,-0.3)))
+//                                      .then(Affine.rotationAboutY(0.5)))
+//
+//        );
+
+
+//        var texture = new ImageTexture("/xyz/marsavic/gfxlab/graphics3d/textures/raptor.jpg");
+//        String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/Raptor.obj";
+//        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath,texture);
+//        solids.add(mesh
+//                .transformed(Affine.IDENTITY
+//                        .then(Affine.scaling(1.0/100.0))
+//                        .then(Affine.translation(Vec3.xyz(-0.2,-1,-0.3)))
+//                        .then(Affine.rotationAboutY(-0.35)))
+//
+//        );
+
+//        String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/cat.obj";
+//        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath,Material.matte(Color.hsb(0.15, 0.9, 0.9)).specular(Color.WHITE).shininess(64));
+//        solids.add(mesh
+//                .transformed(Affine.IDENTITY
+//                        .then(Affine.scaling(1.0/700.0))
+//                        .then(Affine.translation(Vec3.xyz(0.5,-1,0)))
+////
+////                        .then(Affine.rotationAboutY(-0.35)))
+//
+//                ));
+
 
 //        String objFilePath = "/xyz/marsavic/gfxlab/graphics3d/objects/spot.obj";
 //        Mesh mesh = MeshLoader.loadMeshFromOBJ(objFilePath, Material.matte(Color.hsb(0.85, 0.9, 0.9)).specular(Color.WHITE).shininess(64));
@@ -66,9 +99,21 @@ public class MeshTest extends Scene.Base {
                 Light.pc(Vec3.xyz(-0.7, 0.7, -0.7), Color.WHITE),
                 Light.pc(Vec3.xyz(-0.7, 0.7,  0.7), Color.WHITE),
                 Light.pc(Vec3.xyz( 0.7, 0.7, -0.7), Color.WHITE),
-                Light.pc(Vec3.xyz( 0.7, 0.7,  0.7), Color.WHITE)
+                Light.pc(Vec3.xyz( 0.7, 0.7,  0.7), Color.WHITE),
+
+                Light.pc(Vec3.xyz(-0.7, -0.7, 0.7), Color.WHITE),
+                Light.pc(Vec3.xyz(0.7, -0.7,  0.7), Color.WHITE),
+                Light.pc(Vec3.xyz( -0.7, -0.7, -0.7), Color.WHITE),
+                Light.pc(Vec3.xyz( 0.7, -0.7,  -0.7), Color.WHITE)
+
+
         );
 
         solid = Group.of(solids);
+
+
     }
+
+
+
 }
