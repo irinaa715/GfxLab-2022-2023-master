@@ -49,7 +49,7 @@ public class GfxLab {
 																e(()->ProjectiveCamera.fov(1.0/6)),
 
 																e(Affine.IDENTITY
-																				.then(Affine.translation(Vec3.xyz(0, 0, -2)))
+																				.then(Affine.translation(Vec3.xyz(0, 0, -2.5)))
 //																		        .then(Affine.rotationAboutY(0.08))
 																)
 														)
