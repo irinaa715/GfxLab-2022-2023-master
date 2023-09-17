@@ -41,9 +41,9 @@ public class MeshTest extends Scene.Base {
         Mesh mesh = MeshLoader.loadMeshFromOBJ("/xyz/marsavic/gfxlab/graphics3d/objects/pyramid.obj",
                 Material.matte(Color.hsb(0.15, 0.9, 0.9)).specular(Color.WHITE).shininess(64)
                 );
-        solids.add(mesh.transformed(
+                solids.add(mesh.transformed(
                         Affine.IDENTITY
-                                .then(Affine.translation(Vec3.xyz(0,-0.5,0)))
+                                .then(Affine.translation(Vec3.xyz(0,-0.2,0)))
                                 .then(Affine.rotationAboutY(0.3))
                 )
         );

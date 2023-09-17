@@ -3,7 +3,6 @@ package xyz.marsavic.gfxlab.graphics3d.mesh;
 import xyz.marsavic.functions.interfaces.F1;
 import xyz.marsavic.geometry.Vector;
 import xyz.marsavic.gfxlab.Vec3;
-import xyz.marsavic.gfxlab.elements.Element;
 import xyz.marsavic.gfxlab.graphics3d.Material;
 
 import java.io.*;
@@ -53,29 +52,23 @@ public class MeshLoader {
                         String[] faceData = parts[i + 1].split("/");
                         vertexIndices[i] = Integer.parseInt(faceData[0]) - 1;
                         texIndices[i] = (faceData.length >= 2 && !faceData[1].isEmpty()) ? Integer.parseInt(faceData[1]) - 1 : 0;
-                        normalIndices[i] = faceData.length >= 3 ? Integer.parseInt(faceData[2]) - 1 : -1;
+                        normalIndices[i] = faceData.length >= 3 ? Integer.parseInt(faceData[2]) - 1 : 0;
                     }
 
                     Triangle triangle;
+                    Vec3 v0 = vertices.get(vertexIndices[0]);
+                    Vec3 v1 = vertices.get(vertexIndices[1]);
+                    Vec3 v2 = vertices.get(vertexIndices[2]);
+
                     if (textures.isEmpty()) textures.add(null);
-                    if (normals.isEmpty()) {
-                        Vec3 v0 = vertices.get(vertexIndices[0]);
-                        Vec3 v1 = vertices.get(vertexIndices[1]);
-                        Vec3 v2 = vertices.get(vertexIndices[2]);
-                        Vec3 normal = v1.sub(v0).cross(v2.sub(v0));
-                        triangle = new Triangle(
-                                new Vertex(v0, normal,textures.get(texIndices[0])),
-                                new Vertex(v1, normal, textures.get(texIndices[1])),
-                                new Vertex(v2, normal, textures.get((texIndices[2])))
-                        );
-                    } else {
+                    if (normals.isEmpty())normals.add(null);
 
                         triangle = new Triangle(
-                                new Vertex(vertices.get(vertexIndices[0]), normals.get(normalIndices[0]), textures.get(texIndices[0])),
-                                new Vertex(vertices.get(vertexIndices[1]), normals.get(normalIndices[1]), textures.get(texIndices[1])),
-                                new Vertex(vertices.get(vertexIndices[2]), normals.get(normalIndices[2]), textures.get(texIndices[2]))
+                                new Vertex(v0, normals.get(normalIndices[0]), textures.get(texIndices[0])),
+                                new Vertex(v1, normals.get(normalIndices[1]), textures.get(texIndices[1])),
+                                new Vertex(v2, normals.get(normalIndices[2]), textures.get(texIndices[2]))
                         );
-                    }
+
                     mesh.addTriangle(triangle);
                 }
 

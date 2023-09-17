@@ -62,7 +62,7 @@ public class Mesh implements Solid {
         Vec3 p = ray.d().cross(e2);
         double det = e1.dot(p);
 
-        if(Math.abs(det) <= 1e-6)  return new BarycentricAndTime(0, 0, Double.POSITIVE_INFINITY);
+        if(det < 1e-6 && det > -1e-6)  return new BarycentricAndTime(0, 0, Double.POSITIVE_INFINITY);
 
         double inv_det = 1.0 / det;
         Vec3 t = ray.p().sub(v0.p());
@@ -96,30 +96,33 @@ public class Mesh implements Solid {
 
         @Override
         public Vec3 n() {
+            Vec3 normal;
+            if (triangle.v0().n() != null) {
+                Vec3 n0_ = triangle.v0().n().normalized_();
+                Vec3 n1_ = triangle.v1().n().normalized_();
+                Vec3 n2_ = triangle.v2().n().normalized_();
 
-            Vec3 n0_ = triangle.v0().n().normalized_();
-            Vec3 n1_ = triangle.v1().n().normalized_();
-            Vec3 n2_ = triangle.v2().n().normalized_();
+                double barycentricW = 1.0 - barycentricU - barycentricV;
 
-            double barycentricW = 1.0 - barycentricU - barycentricV;
+                normal = n0_.mul(barycentricW)
+                        .add(n1_.mul(barycentricU))
+                        .add(n2_.mul(barycentricV));
+            }else{
+                Vertex v0 = triangle.v0();
+                Vertex v1 = triangle.v1();
+                Vertex v2 = triangle.v2();
 
-            Vec3 interpolatedNormal = n0_.mul(barycentricW)
-                    .add(n1_.mul(barycentricU))
-                    .add(n2_.mul(barycentricV));
+                Vec3 v0v1 = v1.p().sub(v0.p());
+                Vec3 v0v2 = v2.p().sub(v0.p() );
 
-            return interpolatedNormal;
-//            Vertex v0 = triangle.v0();
-//            Vertex v1 = triangle.v1();
-//            Vertex v2 = triangle.v2();
-//
-//            Vec3 v0v1 = v1.p().sub(v0.p());
-//            Vec3 v0v2 = v2.p().sub(v0.p() );
-//
-//
-//            Vec3 normal = v0v1.cross(v0v2);
-//
-//
-//            return normal.normalized_();
+
+                normal = v0v1.cross(v0v2);
+            }
+
+
+
+
+            return normal;
         }
 
         @Override
