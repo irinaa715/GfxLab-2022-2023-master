@@ -1,7 +1,5 @@
 package xyz.marsavic.gfxlab.graphics3d.mesh;
 
-
-
 public class Triangle {
     private final Vertex v0;
     private final Vertex v1;
